@@ -5,8 +5,8 @@ provider "google" {
 }
 
 
-resource "google_storage_bucket" "static-site" {
-  name     = "www.seongland.com"
+resource "google_storage_bucket" "seongland-bucket" {
+  name     = "seongland"
   location = "asia-northeast3"
   website {
     main_page_suffix = "index.html"
@@ -14,8 +14,23 @@ resource "google_storage_bucket" "static-site" {
   }
 }
 
-resource "google_storage_bucket_access_control" "public_rule" {
-  bucket = "www.seongland.com"
+resource "google_storage_bucket_access_control" "seongland-bucket-rule" {
+  bucket = "seongland"
+  role   = "READER"
+  entity = "allUsers"
+}
+
+resource "google_storage_bucket" "pointland-bucket" {
+  name     = "pointland"
+  location = "asia-northeast3"
+  website {
+    main_page_suffix = "index.html"
+    not_found_page   = "404.html"
+  }
+}
+
+resource "google_storage_bucket_access_control" "pointland-bucket-rule" {
+  bucket = "pointland"
   role   = "READER"
   entity = "allUsers"
 }
